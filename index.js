@@ -752,9 +752,14 @@ function saveHistory(messages)  {
     })
     .map(m => ({
       role:    m.role,
-      content: typeof m.content === 'string' ? m.content : m.content.map(b => b.text).join(''),
+      // Truncate long assistant responses — keeps follow-up context without polluting next question
+      content: (() => {
+        const c = typeof m.content === 'string' ? m.content : m.content.map(b => b.text).join('');
+        if (m.role === 'assistant' && c.length > 300) return c.slice(0, 300) + '… [truncated]';
+        return c;
+      })(),
     }))
-    .slice(-10);
+    .slice(-6); // last 3 exchanges
   conversationHistory.length = 0;
   conversationHistory.push(...textOnly);
 }
