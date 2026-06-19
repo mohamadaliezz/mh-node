@@ -835,9 +835,22 @@ async function handleTelegramMessage(msg) {
   const isCommand   = ACTION_VERBS.test(text.trim());
   const isStatement = !isQuestion && !isCommand;
 
+  // Scope injection — force single data source based on question type
+  const lc = text.toLowerCase();
+  let scopeTag = '';
+  if (/lift|gym|hevy|bench|squat|deadlift|upper|lower|routine|reps|sets|workout|exercise/.test(lc)) {
+    scopeTag = '\n\n[GYM QUESTION: call get_hevy_workouts ONLY. Do NOT call get_oura_readiness, get_intervals_wellness, get_strava_activities, or any other tool.]';
+  } else if (/ctl|atl|tsb|fitness|load|form|intervals|training stress/.test(lc)) {
+    scopeTag = '\n\n[FITNESS QUESTION: call get_intervals_wellness ONLY. Do NOT call any other tool.]';
+  } else if (/readiness|recovery|hrv|sleep|oura|resting hr|rest/.test(lc)) {
+    scopeTag = '\n\n[RECOVERY QUESTION: call get_oura_readiness ONLY. Do NOT call any other tool.]';
+  } else if (/run|ran|pace|km|strava|easy|long run|tempo|interval|session/.test(lc) && !/gym|lift|bench/.test(lc)) {
+    scopeTag = '\n\n[RUN QUESTION: call get_strava_activities or get_strava_activity_detail ONLY. Do NOT call any other tool.]';
+  }
+
   const userMessage = isStatement
     ? `${text}\n\n[PLAIN STATEMENT — acknowledge in 1–2 sentences only. Call ZERO tools. No coaching notes, no session plans.]`
-    : text;
+    : text + scopeTag;
 
   try {
     await sendTyping(chatId);
