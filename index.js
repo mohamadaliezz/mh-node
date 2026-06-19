@@ -859,9 +859,7 @@ async function handleTelegramMessage(msg) {
 
   try {
     await sendTyping(chatId);
-    const history = getHistory();
-    const { text: reply, messages } = await runAgentLoop(userMessage, history);
-    saveHistory(messages);
+    const { text: reply } = await runAgentLoop(userMessage, []);
     await sendTelegram(reply);
   } catch (e) {
     console.error('handleTelegramMessage error:', e);
