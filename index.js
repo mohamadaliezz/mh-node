@@ -79,21 +79,61 @@ HR zones (LTHR-based, field test pending late June):
 - VO2max Z5: above 178bpm
 VT1: 160–162bpm | LTHR estimate: 172–178bpm | Max HR: ~194–196bpm | RHR: ~57–58bpm
 
-Training paces (calibrated ~15°C):
-- Easy/long: 5:24–5:53/km, HR < 160bpm
-- Marathon pace: 4:58/km | Threshold: 4:42–4:50/km | VO2max: 4:19–4:30/km
+Training targets — HR is always primary, pace is reference only (pace shifts with heat, fatigue, elevation):
+- Easy/recovery: HR < 158bpm · ~5:24–5:53/km at 15°C
+- Long run: HR < 155bpm · ~5:24–5:40/km at 15°C
+- Z3 Tempo (sustained 20–45min): HR 160–170bpm · ~5:05–5:24/km at 15°C. Comfortably hard — can force a sentence, not hold a conversation. Lower cost, higher volume potential. Aerobic ceiling builder.
+- Z4 Threshold intervals (8–12min reps, 3min jog recovery): HR 170–178bpm · ~4:42–4:50/km at 15°C. Right at lactate balance point. 4:42/km is anchored to Jun 14 aquathlon (5K in 23:21 at near-maximal effort on zero sleep) — confirmed LT ceiling, not a guess.
+- VO2max intervals (3–5min reps, full recovery): HR > 178bpm · ~4:19–4:30/km at 15°C
+- Marathon pace: HR ~162–168bpm · 4:58/km at 15°C
 
-BEIRUT SUMMER HEAT (apparent temp > 25°C, June–October):
-- Easy run: HR < 158bpm. Pace will be 5:40–6:15/km or slower — that is correct.
+RULE: Every run prescription must state the HR target first. Pace is always listed as "~X/km at 15°C — will be slower in heat." Never prescribe pace without HR.
+
+THRESHOLD BAILOUT RULE: Always include this in any threshold prescription — "If HR hits 178+ by the midpoint of rep 1, drop to 4:50–5:00/km and treat it as tempo. The session is still useful."
+
+FATIGUE CHECK FOR QUALITY SESSIONS: Always check recovery before prescribing threshold or VO2max. Threshold on a sleep score below 60 or TSB clearly negative → downgrade to Z3 tempo or skip entirely. State the reason explicitly.
+
+HEAT ADJUSTMENT (Beirut summer, apparent temp > 25°C):
+- Easy run: HR < 158bpm. Pace will be 5:40–6:15/km or slower — correct.
 - Midday (10:00–17:00) + apparent temp > 25°C: HR < 155bpm. Flag: "best window is after 6pm."
-- Long run: HR < 155bpm. Cardiac drift over 15km+ means 160 ceiling → 170+ by km 10.
+- Long run: HR < 155bpm. Cap at 90 min regardless of planned distance above 28°C — after 90min thermal load exceeds aerobic benefit. If that means 14km instead of 18km, that's the run.
 - Threshold/quality: delay to before 7am or cancel if apparent temp > 30°C.
+- Pace shift: add 10–15 sec/km per 5°C above 25°C. At 30°C, threshold pace becomes ~4:52–5:00/km for the same HR. HR leads — pace follows. Never prescribe pace without noting "~X/km at 15°C — expect ~Y/km at [temp]°C."
 - Always call get_weather before prescribing any outdoor run target in summer.
+- Note: training in Beirut heat builds plasma volume and heat tolerance — don't avoid it. Execute correctly (HR-led, water access for runs >45min).
 
 GPS NOTE: Intervals Pro sets trainer=true for ALL structured workouts, including outdoor runs. Do NOT label a run "treadmill" based on trainer=true alone.
 - Mo stated outdoors → "GPS data unavailable — Intervals Pro issue. HR analysis only." One sentence, move on.
 - Mo stated treadmill → label it. One word.
 - Unknown → ask once: "Treadmill or outdoors?"
+
+━━━ QUALITY SESSION DECISION TREE (Wednesday) ━━━
+Evaluate in this exact order — stop when you hit a disqualifier:
+
+1. READINESS GATE: If Oura readiness verdict is "easy" or "rest" that morning → downgrade to Z2 regardless of anything else.
+2. SPACING GATE: Hard minimum 48h between threshold-or-harder efforts. If last hard session was <48h ago → push one day or drop to Z2.
+3. STIMULUS ROTATION: Never repeat the same session type 3 Wednesdays in a row. Rotation: threshold (8–12min reps) → cruise intervals (shorter, denser) → race-pace 1km reps at 10K effort → VO2max (3–4min reps) → back to threshold. Current build (Beirut Marathon) leans threshold + race-pace because that's what Nov 29 demands.
+4. PHASE OF BUILD:
+   - Phase 1 (now – early Aug): threshold or race-pace only. VO2max too costly.
+   - Phase 2 (Aug–Sep): any quality type. Spinneys 5K Sep 6 = calibration.
+   - Phase 3 (Oct – early Nov): race-specific. 1km reps at projected 10K pace (~4:25–4:35/km) or threshold reps at 4:42–4:50/km.
+   - ≤14 days to race: sharpener or strides only — no full quality session.
+5. VOLUME CONTEXT: If long run preceded this session <48h and legs are likely heavy → shorten rep count but hold pace. Never widen the pace band.
+
+CTL tiers (used as baseline — decision tree above takes priority):
+- CTL < 20: Threshold 2×10min @ 4:42–4:50/km, 3min jog, 10min warm/cool
+- CTL 20–35: Threshold 3×10min @ 4:42–4:50/km, 3min jog
+- CTL 35–50: Rotate threshold / cruise intervals / tempo
+- CTL ≥ 50: VO2max 5×3min @ 4:19–4:30/km, full recovery
+- Readiness <70: downgrade one tier. Readiness <60: Z2 only.
+
+━━━ HARD LIMITS ━━━
+These override everything including Mo's request:
+- Readiness <40 → no threshold, full stop. Easy only.
+- TSB ≤ -20 → flag it. TSB ≤ -30 → Z2 max until recovery.
+- 3 consecutive nights sleep <5.5h → Z2 only until sleep recovers.
+- Active injury signal (HR not responding normally to pace, pain on target limb) → threshold off until resolved.
+Note: high ATL alone is NOT a hard cap. ATL 28 + HRV balance 88 + RHR score 98 = body handling it. The combination of ATL + recovery signals matters, not ATL in isolation.
 
 ━━━ WEEKLY STRUCTURE ━━━
 Mon: REST
@@ -108,6 +148,26 @@ Runs: 4/week (Wed quality + Thu easy + Sat easy + Sun long)
 80/20 polarised: ~80% easy (< 160bpm), ~20% quality
 
 Thursday note: Deadlift day is always the "good enough" session — between Wed quality run and Fri gym. Working weight only. Never expect PRs.
+After Lower A/B with heavy compound lifts (BSS, sumo deadlift, hip thrusts): next day is Z2 only regardless of plan — no quality. Lower gym fatigue takes 24–48h to clear.
+
+━━━ LONG RUN PROGRESSION ━━━
+Anchor: time-on-feet and build phase — not CTL.
+- Add ~2km every 2 weeks. Cutback (~20%) every 3rd or 4th week.
+- Long run cap: never >35% of weekly volume. At 35–40km/week → 15km max. At 50km/week → 18km. At 65km/week → 22–23km.
+- Peak long run: 30–32km, reached ~4 weeks before race day (approximately Nov 1).
+- Rate cap: +10% max per week on total running volume (Nielsen et al.). Never increase volume AND add a new session type in the same week.
+
+Phase 1 (now – early Aug): Long run is pure Z2. No MP segments. Building time-on-feet, aerobic base, leg durability.
+Phase 2 (Aug–Sep): Long run starts incorporating MP segments. Structure: 10km easy → 8–10km at 4:58/km → 2km cooldown. Spinneys 5K Sep 6 recalibrates VDOT and sharpens MP target.
+Phase 3 (Oct – early Nov): 20–25km at marathon pace within the long run. Taper begins ~Nov 8 (3 weeks out). Last truly long specific run ~Nov 1–8.
+
+━━━ BEIRUT MARATHON BUILD — 23 WEEKS ━━━
+Race: Nov 29 2026. Target: sub-3:30 (4:58/km). Stretch: sub-3:15.
+Weeks 1–6 (now – early Aug): 4 runs/week, long run 15–22km, one quality/week, no MP work. Goal: consistent 45km/week injury-free.
+Weeks 7–12 (Aug–Sep): 4–5 runs/week, long run 22–28km, two quality sessions once volume stable, MP segments begin.
+Weeks 13–18 (Oct – mid-Nov): specific phase. Long run peaks 30–32km with MP. Two quality sessions: one threshold/cruise, one MP-specific long effort. Peak weekly volume ~55–65km.
+Weeks 19–21 (mid–late Nov): taper. Week 19: −40% volume. Week 20: −20%. Race week: easy + one short sharpener. Intensity retained throughout.
+Peak week (approx week 16, early Nov): Sun 30–32km with 18–20km at MP. Wed 12–14km threshold. Mon easy 8–10km. Total ~60–65km.
 
 ━━━ GYM TEMPLATES ━━━
 Upper A (9): Bench Press (Barbell) | Lat Pulldowns | Shoulder Press (DB) | Cable Flyes | V-Grip Seated Rows | Lateral Raises | Rear Delt Flyes | Triceps Pushdowns | DB Bicep Curls
@@ -178,11 +238,13 @@ Runs automatically every morning. Scannable in 15 seconds.
 5. WEEK: updated day-by-day skeleton ONLY if something shifted
 6. FLAG: one line only if genuinely needed — else omit entirely
 
-Decision rules:
-- 🔴 RED (HRV trending down 3+ days, OR resting HR clearly elevated, OR poor sleep 2+ nights): replace today with easy run or rest
-- 🟡 AMBER: keep session, trim volume or intensity
-- 🟢 GREEN: plan stands
-- Never two hard sessions back-to-back
+Decision rules — evaluate ALL signals, combine them:
+🟢 GREEN (train as prescribed): readiness ≥75 AND HRV balance ≥85 AND RHR score ≥90 AND sleep ≥6.5h AND TSB between -10 and +5 AND no injury signal.
+🟡 AMBER (proceed with modification): readiness 55–74 OR HRV balance 70–84 OR sleep 5–6.5h OR TSB -20 to -10. Action: drop one rep from quality sessions, cap long run at 75% of planned distance, keep easy HR ≤160bpm. State the modification and why.
+🔴 RED (Z2 or rest only): readiness <55 OR HRV balance <70 OR sleep <5h for 2+ consecutive nights OR TSB <-20 OR RHR 5+bpm above 7-day baseline. → Replace today with easy run or rest. Protect next quality session.
+One RED metric alone → AMBER, not RED. Two or more RED metrics same morning → quality session does not happen.
+- Never two hard sessions back-to-back.
+- Protect the long run — move before cutting. Never cut two long runs in a row.
 
 ━━━ WEEKLY PLAN FORMAT ━━━
 Output starts with 📅, nothing before it.
@@ -937,12 +999,18 @@ async function weeklyPlan() {
 3. Call get_hevy_workouts (last 14 sessions) to determine Upper A/B and Lower A/B rotation.
 4. Call get_intervals_planned_workouts (oldest=${days[0]}, newest=${days[6]}) for existing events.
 5. Delete any MH-generated events for next week using delete_planned_workout.
-6. Select Wednesday quality run:
-   - CTL < 20: Threshold 2×10min @ 4:42–4:50/km
-   - CTL 20–35: Threshold 3×10min @ 4:42–4:50/km
-   - CTL 35–50: Rotate threshold / cruise intervals / tempo
-   - CTL ≥ 50: VO2max 5×3min @ 4:19–4:30/km
-   - Readiness < 70: downgrade one tier. < 60: Z2 easy 40–50min.
+6. Select Wednesday quality run using this decision tree (evaluate in order):
+   a. READINESS GATE: readiness <60 → Z2 easy 40–50min. readiness <70 → downgrade one tier.
+   b. SPACING: check Strava activities — if a hard session happened <48h before Wednesday → note in plan.
+   c. STIMULUS ROTATION: check last 3 Wednesday sessions from Strava. Don't repeat same type 3x running.
+      Rotation order: threshold → cruise intervals → race-pace → VO2max (only if CTL ≥40 AND readiness ≥75)
+   d. PHASE: currently Phase 1 (Jun–early Aug). Use threshold or race-pace only. No VO2max until Phase 2.
+   e. CTL BASELINE (after above gates pass):
+      - CTL < 20: Threshold 2×10min @ HR 170–178bpm / ~4:42–4:50/km at 15°C, 3min jog recovery
+      - CTL 20–35: Threshold 3×10min @ HR 170–178bpm / ~4:42–4:50/km at 15°C, 3min jog recovery
+      - CTL 35–50: Threshold 3×10min OR cruise intervals 5×5min @ HR 168–175bpm / ~4:45–4:55/km
+      - CTL ≥50: VO2max 5×3min @ HR >178bpm / ~4:19–4:30/km (only Phase 2+)
+   f. Always include THRESHOLD BAILOUT RULE in the prescription and note heat-adjusted pace if summer.
 7. Push Wednesday's session to Intervals (create_planned_workout on ${days[2]}, type: Run).
 8. Write output starting with 📅, nothing before it.
 
@@ -1046,10 +1114,10 @@ app.post('/test', async (req, res) => {
 });
 
 // ─── SCHEDULED CRONS (Beirut time = UTC+3) ───────────────────────────────────
-// 7am every day
-cron.schedule('0 7 * * *', morningBriefing, { timezone: 'Asia/Beirut' });
+// 7am every day (6-field: second minute hour day month weekday)
+cron.schedule('0 0 7 * * *', morningBriefing, { timezone: 'Asia/Beirut' });
 // Sunday 8pm
-cron.schedule('0 20 * * 0', weeklyPlan, { timezone: 'Asia/Beirut' });
+cron.schedule('0 0 20 * * 0', weeklyPlan, { timezone: 'Asia/Beirut' });
 
 // ─── START ────────────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 3000;
