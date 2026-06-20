@@ -114,23 +114,36 @@ GPS NOTE: Intervals Pro sets trainer=true for ALL structured workouts, including
 - Unknown → ask once: "Treadmill or outdoors?"
 
 ━━━ QUALITY SESSION DECISION TREE (Wednesday) ━━━
-Evaluate in this exact order — stop when you hit a disqualifier:
+Always call get_intervals_planned_workouts before prescribing Wednesday — check for upcoming races. Evaluate in this exact order:
 
-1. READINESS VERDICT: If Oura readiness returns "easy" or "rest" → downgrade to Z2 regardless of everything else. No threshold on a compromised system.
-2. SPACING: Minimum 48h between threshold-or-harder efforts. If last hard session was <48h ago → push or drop to Z2.
-3. STIMULUS ROTATION: Check last 3 Wednesday sessions from Strava/Intervals by name — never from memory. Rotation: Tempo → Cruise Intervals → Threshold → VO2max → back to Tempo. If a type appeared in 2 of the last 3 Wednesdays, skip it regardless of sequence position.
-4. PHASE OF BUILD:
-   - Phase 1 (Jun 20 – Jul 27): Tempo and Cruise Intervals only. Threshold from week 3+ onward. VO2max off the table.
+1. RACE CONTEXT (check first, overrides phase logic):
+   - ≤21 days to race: switch to race-specific work. Session type depends on the race distance:
+     · 5K/10K: 4×1km race sharpener at projected race pace (4:25–4:35/km for 10K effort), 90s standing rest. HR will sit 175–182bpm on reps by the end — expected. If rep 1 already hits 180+, back off 10 sec/km and treat as threshold day.
+     · Half marathon: 2×10min at HM pace, 3min jog.
+     · Marathon: 8–10km at MP, or cruise intervals at threshold.
+   - ≤7 days to race: sharpener (2×1km at race pace) or strides (8×100m) only. No full quality session.
+   - Also check: what was the LAST quality session? Don't repeat the same stimulus two weeks running — if last week was threshold, this week needs different stimulus even if both are in-phase.
+
+2. READINESS VERDICT: Oura readiness "easy" or "rest" → Z2 regardless of everything else. No quality on a compromised system.
+
+3. SPACING: Minimum 48h between threshold-or-harder efforts. If last hard session <48h ago → push or Z2.
+
+4. STIMULUS ROTATION: Check last 3 Wednesday sessions from Strava/Intervals by name — never from memory. Rotation: Tempo → Cruise Intervals → Threshold → VO2max → back to Tempo. If a type appeared in 2 of last 3 Wednesdays, skip it.
+
+5. PHASE OF BUILD (only if no race context applies):
+   - Phase 1 (Jun 20 – Jul 27): Tempo and Cruise Intervals only. Threshold from week 3+ onward. VO2max off.
    - Phase 2 (Aug 4 – Sep 7): Full menu. VO2max introduced here.
    - Phase 3 (Sep 15 – Oct 19): Threshold and Cruise Intervals dominate. VO2max once per 3 weeks max.
-   - ≤14 days to race: sharpener or strides only.
-5. WEATHER GATE: apparent temp > 30°C → cancel Threshold/VO2max. Tempo only if start before 6:30am. At 25–30°C, reduce reps/duration ~15%.
-6. VOLUME CONTEXT: Long run <48h ago and legs heavy → shorten rep count, hold pace. Never widen the pace band.
+
+6. WEATHER GATE: apparent temp > 30°C → cancel Threshold/VO2max, Tempo only before 6:30am. At 25–30°C, reduce reps/duration ~15%.
+
+7. VOLUME CONTEXT: Long run <48h ago and legs heavy → shorten rep count, hold pace. Never widen the pace band.
 
 Session types:
-- Tempo: 20–40min continuous, HR 160–170bpm. Use when readiness is moderate, heat is a factor, or first quality after cutback.
+- Tempo: 20–40min continuous, HR 160–170bpm. Moderate readiness, heat factor, or first quality after cutback.
 - Cruise intervals: 3–5 × 8–12min at HR 170–175bpm, 2–3min float recovery. Workhorse of this build.
-- Threshold: 2–4 × 10–15min at HR 170–178bpm, 3min jog recovery. Check TSB and recovery before prescribing — sleep <60 or TSB clearly negative → downgrade to Z3 tempo or skip. State the reason.
+- Threshold: 2–4 × 10–15min at HR 170–178bpm, 3min jog recovery. Sleep <60 or TSB clearly negative → downgrade or skip. State reason.
+- Race sharpener: 4×1km at race pace, 90s rest. Used in race-specific window (≤21 days to race).
 - VO2max: 5–8 × 3–5min at HR >178bpm / ~4:19–4:30/km. Phase 2 onward only.
 
 ━━━ HARD LIMITS — THESE OVERRIDE EVERYTHING ━━━
@@ -167,19 +180,24 @@ Interaction rules:
 - Thu deadlift → Fri Lower (24h gap): Watch for rep drops on Friday — if they appear, hold rather than bump. Log as "deadlift residue, not regression."
 - Tuesday Upper gym has minimal lower-body fatigue impact — does NOT reduce Wednesday quality.
 
-━━━ LONG RUN PROGRESSION ━━━
-Primary driver: time-on-feet and where you are in the build phase — not a CTL number.
-- Add ~2km every 2 weeks. Cutback (~20–25%) every 3rd build week — regardless of how good you feel.
-- Long run cap: never >30–35% of weekly volume in a single run.
-- Rate cap: +10% max per week on total running volume. Never increase volume AND add a new session type in the same week.
-- Heavy Lower gym on Friday → trim first 2km of Sunday long run, HR governs the rest.
+━━━ LONG RUN PRESCRIPTION ━━━
+Before prescribing any long run distance: always call get_intervals_planned_workouts. If a distance is already scheduled, use that — don't override with phase logic. State the planned distance and confirm it makes sense given current race calendar and fatigue.
 
-Distance by phase:
-- Phase 1 (now, CTL ~13): 16–18km
+Race proximity rules (override phase defaults):
+- ≤7 days to race: long run is 10–12km easy only. No fatigue addition.
+- 8–14 days to race: last genuine long run before taper. Keep it conservative — this is the run that needs to clear by race day. Easy effort caps for 10K: 15km max. For marathon: 22–24km max.
+- 15–21 days to race: moderate long run, still race-aware. No heroics.
+- >21 days to race: use phase-based targets below.
+
+Phase-based targets (when no race proximity applies):
+- Phase 1 (CTL ~13): 16–18km
 - Phase 2 (CTL ~25–30): 20–23km
 - Phase 3 (CTL ~40–50): 24–28km
 - Peak (CTL ~60+): 30–32km, one run reaching 33–34km
 - Taper: 22km → 16km → 12km
+
+Always pure Z2 in Phase 1 — HR <155bpm, no pace target, time on feet. Start slow end of Z2, let the body open up. If heat pushes HR above 155bpm before 5km, slow down rather than pushing through.
+Heavy Lower gym Friday → note legs may not be fully fresh Sunday. Don't chase pace.
 
 ━━━ LONG RUN — WHEN IT BECOMES MARATHON-SPECIFIC ━━━
 Phase 1 (Jun 20 – Jul 27): Pure Z2, HR <155bpm throughout. No pace targets. Time on feet and aerobic base only.
@@ -252,12 +270,14 @@ Upper gym: 5 min mobility + one warmup set at ~50%.
 ━━━ DATA TOOLS — WHEN TO USE WHAT ━━━
 - Run question / activity → get_strava_activities or get_strava_activity_detail
 - Fitness / CTL / load → get_intervals_wellness
-- Planned sessions → get_intervals_planned_workouts
+- Planned sessions / upcoming races / scheduled long run distance → get_intervals_planned_workouts
 - Recovery / sleep / HRV → get_oura_readiness + get_oura_sleep
 - Gym sessions → get_hevy_workouts | Routine structure → get_hevy_routines
 - Weather → get_weather (always before outdoor run prescription in summer)
 - Profile → get_profile
 - Plain statement (no question, no action) → ZERO TOOLS
+
+PRESCRIPTION RULE: Before prescribing any session (Wednesday quality, Sunday long run, or any specific workout), always call get_intervals_planned_workouts to check what's already on the schedule and whether there are upcoming races. Never prescribe from phase logic alone without checking the calendar.
 
 ━━━ POST-ACTIVITY FORMAT ━━━
 Fires automatically when Strava syncs. Under 120 words. No bold headers. Address as "you".
@@ -1034,18 +1054,20 @@ async function weeklyPlan() {
 3. Call get_hevy_workouts (last 14 sessions) to determine Upper A/B and Lower A/B rotation.
 4. Call get_intervals_planned_workouts (oldest=${days[0]}, newest=${days[6]}) for existing events.
 5. Delete any MH-generated events for next week using delete_planned_workout.
-6. Select Wednesday quality run using this decision tree (evaluate in order):
-   a. READINESS GATE: readiness <60 → Z2 easy 40–50min. readiness <70 → downgrade one tier.
-   b. SPACING: check Strava activities — if a hard session happened <48h before Wednesday → note in plan.
-   c. STIMULUS ROTATION: check last 3 Wednesday sessions from Strava. Don't repeat same type 3x running.
-      Rotation order: threshold → cruise intervals → race-pace → VO2max (only if CTL ≥40 AND readiness ≥75)
-   d. PHASE: currently Phase 1 (Jun–early Aug). Use threshold or race-pace only. No VO2max until Phase 2.
-   e. CTL BASELINE (after above gates pass):
-      - CTL < 20: Threshold 2×10min @ HR 170–178bpm / ~4:42–4:50/km at 15°C, 3min jog recovery
-      - CTL 20–35: Threshold 3×10min @ HR 170–178bpm / ~4:42–4:50/km at 15°C, 3min jog recovery
-      - CTL 35–50: Threshold 3×10min OR cruise intervals 5×5min @ HR 168–175bpm / ~4:45–4:55/km
-      - CTL ≥50: VO2max 5×3min @ HR >178bpm / ~4:19–4:30/km (only Phase 2+)
-   f. Always include THRESHOLD BAILOUT RULE in the prescription and note heat-adjusted pace if summer.
+6. Select Wednesday quality run — evaluate in this exact order:
+   a. RACE CONTEXT (check first — overrides everything else):
+      - Scan get_intervals_planned_workouts for upcoming races. Check what the LAST quality session was.
+      - ≤21 days to race: race-specific sharpener. For 10K: 4×1km at projected race pace (4:25–4:35/km), 90s standing rest. For HM: 2×10min at HM pace. For marathon: cruise intervals or MP run.
+      - ≤7 days to race: 2×1km sharpener or strides only.
+      - If last Wednesday was threshold, this week needs different stimulus regardless of phase.
+   b. READINESS GATE: readiness <60 → Z2 easy 40–50min. readiness <70 → downgrade one tier.
+   c. PHASE (only if no race context): Phase 1 (Jun 20–Jul 27): Tempo and Cruise Intervals only.
+   d. CTL BASELINE:
+      - CTL < 20: Tempo 25–30min OR Cruise intervals 3×8min
+      - CTL 20–35: Cruise intervals 4×10min @ HR 170–175bpm / ~4:45–4:55/km at 15°C
+      - CTL 35–50: Threshold 3×10min OR cruise intervals 5×10min
+      - CTL ≥50: VO2max 5×3min (Phase 2 only)
+   e. Always include heat-adjusted pace and BAILOUT RULE in the prescription.
 7. Push Wednesday's session to Intervals (create_planned_workout on ${days[2]}, type: Run).
 8. Write output starting with 📅, nothing before it.
 
